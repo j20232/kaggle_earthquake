@@ -9,5 +9,6 @@ class ProcessorFactory():
     @classmethod
     @stop_watch
     def process(cls):
+
         # Split the config file ({version}.json) into each variable
         pass
