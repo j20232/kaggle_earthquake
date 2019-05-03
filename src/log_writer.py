@@ -6,17 +6,28 @@ from pathlib import Path
 from utils import get_version
 
 
-def get_training_logger(version):
-    return getLogger(version + "train")
+def get_main_logger():
+    """Create a logger for main process
+
+    Returns:
+
+
+    """
+    return getLogger(get_version())
+
+
+def get_training_logger():
+    """Create a logger for training
+    """
+    return getLogger(get_version() + "train")
 
 
 def stop_watch(func):
     @wraps(func)
     def wrapper(*args, **kargs):
-        version = get_version()
         start = time.time()
         log = "[S] {}".format(func.__name__)
-        getLogger(version).info(log)
+        get_main_logger().info(log)
 
         result = func(*args, **kargs)
         elapsed_time = int(time.time() - start)
@@ -24,7 +35,7 @@ def stop_watch(func):
         hour, minits = divmod(minits, 60)
 
         log = "[F] {} :{:0>2}:{:0>2}:{:0>2}".format(func.__name__, hour, minits, sec)
-        getLogger(version).info(log)
+        get_main_logger().info(log)
         return result
     return wrapper
 
@@ -41,9 +52,9 @@ def __create_logger(formatter, extension, post_fix):
     log_file = Path(log_path / (get_version() + extension)).resolve()
 
     if post_fix == "train":
-        logger_ = get_training_logger(get_version())
+        logger_ = get_training_logger()
     else:
-        logger_ = getLogger(get_version())
+        logger_ = get_main_logger()
     logger_.setLevel(DEBUG)
 
     file_handler = FileHandler(log_file)
