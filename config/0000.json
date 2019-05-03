@@ -1,3 +1,15 @@
 {
-  "num": 3
+  "Data": "hoge",
+  "Sampler": {
+    "name": "hoge"
+  },
+  "Validation": {
+    "name": "hoge"
+  },
+  "Feature": {
+    "name": "hoge"
+  },
+  "Model": {
+    "name": "hoge"
+  }
 }

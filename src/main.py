@@ -1,13 +1,13 @@
 import gc
 import warnings
 from log_writer import create_loggers, stop_watch
-from processor_factory import ProcessorFactory
+from processor import Processor
 warnings.filterwarnings('ignore')
 
 
 @stop_watch
 def main():
-    ProcessorFactory.process()
+    Processor.process()
 
 
 if __name__ == "__main__":
