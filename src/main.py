@@ -5,7 +5,6 @@ from feature_extractor import FeatureExtractor
 from log_writer import create_loggers, stop_watch
 from pathlib import Path
 from regressor import Regressor
-from sampler import Sampler
 from utils import get_version
 warnings.filterwarnings('ignore')
 
@@ -17,18 +16,14 @@ def main():
     with config_file.open() as f:
         params = json.load(f)
 
-    data_params = root_path / params["Data"]
-    sampler_params = params["Sampler"]
-    validation_params = params["Validation"]
-    sampler = Sampler(data_params, sampler_params, validation_params)
-    dataset_path = sampler.save_dataset()
-
+    dataset_path = root_path / params["Data"]
     feature_params = params["Feature"]
     feature_extractor = FeatureExtractor(dataset_path, feature_params)
     feature_path = feature_extractor.extract()
 
     model_params = params["Model"]
-    regressor = Regressor(feature_path, model_params)
+    extra_params = params["Extra"]
+    regressor = Regressor(feature_path, model_params, extra_params)
     model_path = regressor.train()
     submit_path = regressor.predict(model_path)
     print(submit_path)

@@ -2,9 +2,10 @@
 
 class Regressor():
 
-    def __init__(self, feature_path, model_params):
+    def __init__(self, feature_path, model_params, extra_params):
         self.feature_path = feature_path
         self.model_params = model_params
+        self.extra_params = extra_params
 
     def train(self):
         model_path = "hoge"
