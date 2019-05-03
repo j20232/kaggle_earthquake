@@ -44,7 +44,7 @@ def stop_watch(func):
     @wraps(func)
     def wrapper(*args, **kargs):
         start = time.time()
-        log = "[S] {}".format(func.__name__)
+        log = "[S] {}".format(func.__qualname__)
         get_main_logger().info(log)
 
         result = func(*args, **kargs)
@@ -52,7 +52,7 @@ def stop_watch(func):
         minits, sec = divmod(elapsed_time, 60)
         hour, minits = divmod(minits, 60)
 
-        log = "[F] {} :{:0>2}:{:0>2}:{:0>2}".format(func.__name__, hour, minits, sec)
+        log = "[F] {} :{:0>2}:{:0>2}:{:0>2}".format(func.__qualname__, hour, minits, sec)
 
         get_main_logger().info(log)
         return result
