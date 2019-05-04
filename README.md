@@ -18,8 +18,32 @@ For kaggle
 # Installation
 
 1. Put input files to `./input`
-1. Create feather files
+2. Create feather files
 
 ```
 python src/000_to_feather.py
+```
+
+3. Create train datasets
+
+```
+python src/001_naive_split.py
+```
+
+4. Extract features by specifying the index of the input datasets
+
+```
+python src/100_simple_aggregation.py 001
+```
+
+5. Train a model using an input config file
+
+```
+TODO
+```
+
+6. Predict test files using a input model
+
+```
+TODO
 ```

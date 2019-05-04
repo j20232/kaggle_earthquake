@@ -12,9 +12,6 @@ from common import stop_watch
 def train():
     train_df = pd.read_csv(cc.TRAIN_CSV_PATH, dtype=cc.DTYPES)
     train_df.to_feather(str(cc.TRAIN_FEATHER_PATH))
-    Path.mkdir(cc.FEATURE_PATH, exist_ok=True, parents=True)
-    train_df[["time_to_failure"]].to_feather(str(cc.FEATURE_PATH / "target.f"))
-    del train_df
     gc.collect()
 
 
