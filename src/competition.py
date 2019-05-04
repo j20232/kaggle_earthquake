@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 from pathlib import Path
 
@@ -6,6 +7,7 @@ DTYPES = {
     'time_to_failure': np.float64
 }
 
+PREF = sys.argv[0].split("/")[-1].split("_")[0]
 ROOT_PATH = Path(__file__).absolute().parents[1]
 INPUT_PATH = ROOT_PATH / "input"
 FEATURE_PATH = ROOT_PATH / "data" / "features"

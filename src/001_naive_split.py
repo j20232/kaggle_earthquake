@@ -6,7 +6,6 @@
 
 """
 
-import sys
 import numpy as np
 import pandas as pd
 import feather
@@ -15,12 +14,10 @@ from tqdm import tqdm
 import competition as cc
 from common import stop_watch
 
-PREF = sys.argv[0].split("/")[-1].split("_")[0]
-
 
 @stop_watch
 def main():
-    dataset_path = cc.INPUT_PATH / "{}".format(PREF)
+    dataset_path = cc.INPUT_PATH / "{}".format(cc.PREF)
     Path.mkdir(dataset_path, exist_ok=True, parents=True)
     print("Reading the train feather file...")
     train_df = feather.read_dataframe(str(cc.TRAIN_FEATHER_PATH))
@@ -39,7 +36,7 @@ def main():
         del train_X["index"]
         train_X.to_feather(str(dataset_path / "seg_{}.f".format(seg_id)))
 
-    feature_dir_path = cc.FEATURE_PATH / PREF
+    feature_dir_path = cc.FEATURE_PATH / cc.PREF
     Path.mkdir(feature_dir_path, exist_ok=True, parents=True)
     train_y.to_feather(str(feature_dir_path / "target.f"))
 

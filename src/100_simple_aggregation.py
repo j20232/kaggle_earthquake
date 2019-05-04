@@ -1,3 +1,8 @@
+"""Extract simple aggregation features
+
+    Reference: https://www.kaggle.com/gpreda/lanl-earthquake-eda-and-prediction
+"""
+
 import sys
 import numpy as np
 import pandas as pd
@@ -7,7 +12,6 @@ from tqdm import tqdm
 import competition as cc
 from common import stop_watch
 
-PREF = sys.argv[0].split("/")[-1].split("_")[0]
 TRAIN_FEATHER_DIRECTORY_PATH = cc.INPUT_PATH / sys.argv[1]
 TRAIN_FEATHER_LIST = list(TRAIN_FEATHER_DIRECTORY_PATH.glob('**/*.f'))
 
@@ -20,21 +24,41 @@ def extract_features(feather_list, feature_dir_path):
         seg = feather.read_dataframe(str(each_feather))
         xc = pd.Series(seg['acoustic_data'].values)
 
+        # basic aggregation
         df.loc[index, "mean"] = xc.mean()
         df.loc[index, "std"] = xc.std()
         df.loc[index, "max"] = xc.max()
         df.loc[index, "min"] = xc.min()
+        df.loc[index, 'sum'] = xc.sum()
+        df.loc[index, 'mad'] = xc.mad()
+        df.loc[index, 'kurtosis'] = xc.kurtosis()
+        df.loc[index, 'skew'] = xc.skew()
+        df.loc[index, 'median'] = xc.median()
+        df.loc[index, 'mean_change_rate'] = np.mean(np.nonzero((np.diff(xc) / xc[:-1]))[0])
+
+        # abs aggregation
+        df.loc[index, 'abs_mean'] = np.abs(xc).mean()
+        df.loc[index, 'abs_std'] = np.abs(xc).std()
+        df.loc[index, 'abs_max'] = np.abs(xc).max()
+        df.loc[index, 'abs_min'] = np.abs(xc).min()
+        df.loc[index, 'abs_sum'] = np.abs(xc).sum()
+        df.loc[index, 'abs_mad'] = np.abs(xc).mad()
+        df.loc[index, 'abs_kurtosis'] = np.abs(xc).kurtosis()
+        df.loc[index, 'abs_skew'] = np.abs(xc).skew()
+        df.loc[index, 'abs_median'] = np.abs(xc).median()
+        df.loc[index, 'mean_change_abs'] = np.mean(np.diff(xc))
+        df.loc[index, 'max_to_min'] = xc.max() / np.abs(xc.min())
+        df.loc[index, 'max_to_min_diff'] = xc.max() - np.abs(xc.min())
+        df.loc[index, 'count_big'] = len(xc[np.abs(xc) > 500])
 
     print("Aggregation output is belows:")
     print(df.head(3))
-    df.to_feather(str(feature_dir_path / "{}.f".format(PREF)))
+    df.to_feather(str(feature_dir_path / "{}.f".format(cc.PREF)))
 
 
 def main():
-    print("Extracting features from train dataset {} ...".format(sys.argv[1]))
     train_feature_path = cc.FEATURE_PATH / "{}".format(sys.argv[1])
     extract_features(TRAIN_FEATHER_LIST, train_feature_path)
-    print("Extracting features from test dataset ...")
     test_feature_path = cc.FEATURE_PATH / "test"
     extract_features(cc.TEST_FEATHER_LIST, test_feature_path)
 
