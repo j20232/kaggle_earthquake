@@ -1,3 +1,5 @@
+"""Create feather files from input files"""
+
 import gc
 import pandas as pd
 from tqdm import tqdm
@@ -39,6 +41,6 @@ def sample():
 
 if __name__ == "__main__":
     gc.enable()
-    sample()
     train()
     test()
+    sample()
