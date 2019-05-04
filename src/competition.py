@@ -23,3 +23,6 @@ TEST_FEATHER_LIST = list(TEST_CSV_DIRECTORY_PATH.glob('**/*.f'))
 # Sample Submission Path
 SAMPLE_SUBMISSION_CSV_PATH = INPUT_PATH / "sample_submission.csv"
 SAMPLE_SUBMISSION_FEATHER_PATH = INPUT_PATH / "sample_submission.f"
+
+# Const
+DATASET_LENGTH = 150000

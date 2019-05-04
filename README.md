@@ -7,7 +7,9 @@ For kaggle
 
 - `000` ~ `099`: Preparation for data
     - `000`: Create feather files
-    - `001` ~ `099`: Create train datasets
+    - `001` ~ `030`: Create train datasets
+    - `031` ~ `060`: Data augmentation
+    - `061` ~ `099`: Validation
 - `100` ~ `599`: Feature extraction
 - `600` ~ `799`: Training
 - `800` ~ `899`: Prediction
