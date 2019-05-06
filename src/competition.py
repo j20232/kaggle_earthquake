@@ -36,16 +36,24 @@ SAMPLE_SUBMISSION_FEATHER_PATH = INPUT_PATH / "sample_submission.f"
 DATASET_LENGTH = 150000
 
 
-def output_cv(validity):
+def save_oof(validity):
     validity = validity.reset_index()
     columns_order = ["index", "time_to_failure", "Predict"]
     validity = validity.sort_values("index").reset_index(drop=True).loc[:, columns_order]
     cv_mae = (mean_absolute_error(validity["time_to_failure"], np.array(validity["Predict"])))
-    print("\t >> CV Score (MAE):{}".format(cv_mae))
-    return validity
+    print("!!!!! CV MAE:{}".format(cv_mae))
+    Path.mkdir(OOF_PATH, exist_ok=True, parents=True)
+    validity.to_csv(OOF_PATH / "{}.csv".format(sys.argv[1]))
 
 
-def save_feature_importance(feature_importance, directory_path):
+def save_feature_importance(feature_importance):
     feature_importance["median"] = feature_importance.median(axis='columns')
     feature_importance.sort_values("median", ascending=False, inplace=True)
-    feature_importance.to_csv(Path(directory_path / "{}.csv".format(sys.argv[1])))
+    Path.mkdir(IMPORTANCE_PATH, exist_ok=True, parents=True)
+    feature_importance.to_csv(Path(IMPORTANCE_PATH / "{}.csv".format(sys.argv[1])))
+
+
+def save_model(model, fold):
+    model_path = MODEL_PATH / sys.argv[1]
+    Path.mkdir(model_path, exist_ok=True, parents=True)
+    model.save_model(str(model_path / "fold{}.model".format(fold)))
