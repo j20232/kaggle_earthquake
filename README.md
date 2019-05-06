@@ -15,6 +15,15 @@ For kaggle
 - `800` ~ `899`: Prediction
 - `900` ~ `999`: Visualization
 
+# Fast Installation
+
+1. Put input files to `./input`
+2. Input the below command.
+
+```
+sh sh/init.sh
+```
+
 # Installation
 
 1. Put input files to `./input`
