@@ -42,6 +42,7 @@ def train_with_lightgbm():
             validity["time_to_failure"] = pd.concat([y_tr, y_val])
             validity["Predict"] = 0
             feature_importance["feature"] = X_tr.columns
+            feature_importance["median"] = 0
 
         model = lgb.train(params["trn_params"],
                           train_dataset,
