@@ -9,7 +9,7 @@ data/model/*
 data/oof/*
 data/submit/*
 data/subset/*
-data/validations/*
+data/validation/*
 *.npz
 
 # features & src
