@@ -17,7 +17,7 @@ def create_validation():
     config_file = list(Path(cc.CONFIG_PATH / cc.PREF).glob(sys.argv[1] + "*.json"))[0]
     with config_file.open() as f:
         params = json.load(f)
-    feature_files = [str(Path(cc.FEATURE_PATH / params["Data"] / "{}.f".format(f))) for f in params["Features"]]
+    feature_files = sorted([str(Path(cc.FEATURE_PATH / params["Data"] / "{}.f".format(f))) for f in params["Features"]])
 
     # Read train X
     train_X = pd.concat([
@@ -32,7 +32,7 @@ def create_validation():
     assert scaled_train_X.shape[0] == train_y.shape[0]
 
     # Read test
-    feature_files = [str(Path(cc.FEATURE_PATH / "test" / "{}.f".format(f))) for f in params["Features"]]
+    feature_files = sorted([str(Path(cc.FEATURE_PATH / "test" / "{}.f".format(f))) for f in params["Features"]])
     test_X = pd.concat([
         feather.read_dataframe(f) for f in tqdm(feature_files, mininterval=30)], axis=1)
     test_X.drop(params["Drop"], axis=1, inplace=True)
@@ -47,10 +47,10 @@ def create_validation():
         X_tr, X_val = scaled_train_X.iloc[trn_idx], scaled_train_X.iloc[val_idx]
         y_tr, y_val = train_y.iloc[trn_idx], train_y.iloc[val_idx]
 
-        X_tr.reset_index(drop=True, inplace=True)
-        X_val.reset_index(drop=True, inplace=True)
-        y_tr.reset_index(drop=True, inplace=True)
-        y_val.reset_index(drop=True, inplace=True)
+        X_tr.reset_index(inplace=True)
+        X_val.reset_index(inplace=True)
+        y_tr.reset_index(inplace=True)
+        y_val.reset_index(inplace=True)
 
         X_tr.to_feather(str(fold_dir / "X_tr.f"))
         X_val.to_feather(str(fold_dir / "X_val.f"))
