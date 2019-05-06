@@ -42,7 +42,7 @@ def create_validation():
 
     kf = KFold(n_splits=params["Folds"], shuffle=True, random_state=params["Seed"])
     for fold_, (trn_idx, val_idx) in enumerate(kf.split(scaled_train_X, train_y.values)):
-        fold_dir = cc.VALIDATION_PATH / cc.PREF / "fold{}".format(fold_)
+        fold_dir = cc.VALIDATION_PATH / sys.argv[1] / "fold{}".format(fold_)
         Path.mkdir(fold_dir, exist_ok=True, parents=True)
         X_tr, X_val = scaled_train_X.iloc[trn_idx], scaled_train_X.iloc[val_idx]
         y_tr, y_val = train_y.iloc[trn_idx], train_y.iloc[val_idx]
@@ -56,7 +56,7 @@ def create_validation():
         X_val.to_feather(str(fold_dir / "X_val.f"))
         y_tr.to_feather(str(fold_dir / "y_tr.f"))
         y_val.to_feather(str(fold_dir / "y_val.f"))
-    scaled_test_X.to_feather(str(cc.VALIDATION_PATH / cc.PREF / "test.f"))
+    scaled_test_X.to_feather(str(cc.VALIDATION_PATH / sys.argv[1] / "test.f"))
 
 
 def fit_with_scaler(df, params):

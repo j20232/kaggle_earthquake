@@ -55,8 +55,10 @@ python src/500_naive_kfolds.py 500_001
 7. Train a model using an input config file (`600`~`799`)
 
 ```
-TODO
+python src/600_lightgbm.py 600_001
 ```
+
+`600_001`: index of the config json (`./config/600/600_001.json`)
 
 8. Predict test files using a input model (`800`~`899`)
 
