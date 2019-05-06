@@ -1,0 +1,8 @@
+{
+    "Data": "001",
+    "Features": ["100", "101", "102", "103", "104"],
+    "Drop": [],
+    "Scaler": "StandardScaler",
+    "Folds": 5,
+    "Seed": 1116
+}

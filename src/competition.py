@@ -10,7 +10,9 @@ DTYPES = {
 PREF = sys.argv[0].split("/")[-1].split("_")[0]
 ROOT_PATH = Path(__file__).absolute().parents[1]
 INPUT_PATH = ROOT_PATH / "input"
+CONFIG_PATH = ROOT_PATH / "config"
 FEATURE_PATH = ROOT_PATH / "data" / "features"
+VALIDATION_PATH = ROOT_PATH / "data" / "validation"
 
 # Train Path
 TRAIN_CSV_PATH = INPUT_PATH / "train.csv"
