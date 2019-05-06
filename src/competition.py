@@ -17,6 +17,7 @@ VALIDATION_PATH = ROOT_PATH / "data" / "validation"
 MODEL_PATH = ROOT_PATH / "data" / "model"
 OOF_PATH = ROOT_PATH / "data" / "oof"
 IMPORTANCE_PATH = ROOT_PATH / "importance"
+SUBMIT_PATH = ROOT_PATH / "data" / "submit"
 
 # Train Path
 TRAIN_CSV_PATH = INPUT_PATH / "train.csv"

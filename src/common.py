@@ -50,3 +50,15 @@ def reduce_mem_usage(df):
     print('Memory usage: {:.2f} MB -> {:.2f} MB (Decreased by {:.1f}%)'.format(
         start_mem, end_mem, 100 * (start_mem - end_mem) / start_mem))
     return df
+
+
+def predict_chunk(model, test):
+    initial_idx = 0
+    chunk_size = 1000000
+    current_pred = np.zeros(len(test))
+    while initial_idx < test.shape[0]:
+        final_idx = min(initial_idx + chunk_size, test.shape[0])
+        idx = range(initial_idx, final_idx)
+        current_pred[idx] = model.predict(test.iloc[idx], num_iteration=model.best_iteration)
+        initial_idx = final_idx
+    return current_pred

@@ -56,6 +56,7 @@ def create_validation():
         X_val.to_feather(str(fold_dir / "X_val.f"))
         y_tr.to_feather(str(fold_dir / "y_tr.f"))
         y_val.to_feather(str(fold_dir / "y_val.f"))
+    scaled_test_X.reset_index(inplace=True)
     scaled_test_X.to_feather(str(cc.VALIDATION_PATH / sys.argv[1] / "test.f"))
 
 

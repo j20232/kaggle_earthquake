@@ -23,7 +23,7 @@ def train_with_lightgbm():
     fold_dir_list = sorted(list(Path(cc.VALIDATION_PATH / params["Validation"]).glob("fold*")))
 
     for fold, fold_dir in enumerate(fold_dir_list):
-        print("=== fold{} starts!! ===".format(fold))
+        print("=== [Train] fold{} starts!! ===".format(fold))
         X_tr = feather.read_dataframe(str(fold_dir / "X_tr.f"))
         X_val = feather.read_dataframe(str(fold_dir / "X_val.f"))
         y_tr = feather.read_dataframe(str(fold_dir / "y_tr.f"))
