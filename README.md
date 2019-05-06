@@ -66,6 +66,14 @@ python src/600_lightgbm.py 600_001
 TODO
 ```
 
+# Visualization
+
+- Visualize feature importance as png
+
+```
+python src/900_visualize_importance.py 600_001
+```
+
 # Dependency
 
 Please read `./dependency.txt`
