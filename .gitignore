@@ -10,6 +10,7 @@ data/oof/*
 data/submit/*
 data/subset/*
 data/validation/*
+data/importance_png/*
 *.npz
 
 # features & src
