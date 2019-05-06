@@ -91,12 +91,8 @@ def classic_sta_lta(x, length_sta, length_lta):
     return sta / lta
 
 
-def main():
+if __name__ == "__main__":
     train_feature_path = cc.FEATURE_PATH / "{}".format(sys.argv[1])
     extract_features(TRAIN_FEATHER_LIST, train_feature_path)
     test_feature_path = cc.FEATURE_PATH / "test"
     extract_features(cc.TEST_FEATHER_LIST, test_feature_path)
-
-
-if __name__ == "__main__":
-    main()

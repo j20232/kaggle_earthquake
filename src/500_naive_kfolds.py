@@ -71,9 +71,5 @@ def fit_with_scaler(df, params):
     return scaled_df
 
 
-def main():
-    create_validation()
-
-
 if __name__ == "__main__":
-    main()
+    create_validation()

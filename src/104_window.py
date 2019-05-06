@@ -61,12 +61,8 @@ def extract_features(feather_list, feature_dir_path):
     df.to_feather(str(feature_dir_path / "{}.f".format(cc.PREF)))
 
 
-def main():
+if __name__ == "__main__":
     train_feature_path = cc.FEATURE_PATH / "{}".format(sys.argv[1])
     extract_features(TRAIN_FEATHER_LIST, train_feature_path)
     test_feature_path = cc.FEATURE_PATH / "test"
     extract_features(cc.TEST_FEATHER_LIST, test_feature_path)
-
-
-if __name__ == "__main__":
-    main()
