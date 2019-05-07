@@ -66,7 +66,8 @@ def create_validation():
     scaled_test_X = fit_with_scaler(test_X, params)
     scaled_test_X.reset_index(inplace=True)
     scaled_test_X.to_feather(str(cc.VALIDATION_PATH / sys.argv[1] / "test.f"))
-   
+    print("Test shape: ", scaled_test_X.shape)
+
 
 def fit_with_scaler(df, params):
     if params["Scaler"] == "StandardScaler":
