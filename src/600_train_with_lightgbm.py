@@ -45,8 +45,8 @@ def train_with_lightgbm():
             feature_importance["median"] = 0
 
         model = lgb.train(params["trn_params"],
-                          train_dataset,
-                          params["mtd_params"]["num_boost_round"],
+                          train_set=train_dataset,
+                          num_boost_round=params["mtd_params"]["num_boost_round"],
                           valid_sets=[train_dataset, valid_dataset],
                           verbose_eval=params["mtd_params"]["verbose_eval"],
                           early_stopping_rounds=params["mtd_params"]["early_stopping_rounds"])
