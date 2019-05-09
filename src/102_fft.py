@@ -20,7 +20,7 @@ TRAIN_FEATHER_LIST = list(TRAIN_FEATHER_DIRECTORY_PATH.glob('**/*.f'))
 def extract_features(feather_list, feature_dir_path):
     df = pd.DataFrame()
     Path.mkdir(feature_dir_path, exist_ok=True, parents=True)
-    for index, each_feather in enumerate(tqdm(feather_list)):
+    for index, each_feather in enumerate(tqdm(sorted(feather_list))):
         seg = feather.read_dataframe(str(each_feather))
         xc = pd.Series(seg['acoustic_data'].values)
         zc = np.fft.fft(xc)
@@ -66,6 +66,8 @@ def extract_features(feather_list, feature_dir_path):
 
 if __name__ == "__main__":
     train_feature_path = cc.FEATURE_PATH / "{}".format(sys.argv[1])
-    extract_features(TRAIN_FEATHER_LIST, train_feature_path)
+    train_feather_l = [str(item) for item in TRAIN_FEATHER_LIST]
+    extract_features(train_feather_l, train_feature_path)
     test_feature_path = cc.FEATURE_PATH / "test"
-    extract_features(cc.TEST_FEATHER_LIST, test_feature_path)
+    test_feather_l = [str(item) for item in cc.TEST_FEATHER_LIST]
+    extract_features(test_feather_l, test_feature_path)

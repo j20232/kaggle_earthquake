@@ -34,7 +34,7 @@ def main():
         train_X = segment_df[["acoustic_data"]].copy()
         train_X.reset_index(inplace=True)
         del train_X["index"]
-        train_X.to_feather(str(dataset_path / "seg_{}.f".format(seg_id)))
+        train_X.to_feather(str(dataset_path / "seg_{:0=4}.f".format(seg_id)))
 
     feature_dir_path = cc.FEATURE_PATH / cc.PREF
     Path.mkdir(feature_dir_path, exist_ok=True, parents=True)
