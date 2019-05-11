@@ -3,7 +3,6 @@ import os
 import sys
 import json
 import pandas as pd
-import feather
 import lightgbm as lgb
 from pathlib import Path
 import competition as cc
@@ -24,8 +23,8 @@ def predict_with_lightgbm():
 
     preds = None
     predict_df = None
-    test_feather_path = Path(cc.VALIDATION_PATH / sys.argv[1] / "test.f")
-    test_X = feather.read_dataframe(str(test_feather_path))
+    test_csv_path = Path(cc.VALIDATION_PATH / sys.argv[1] / "test.csv")
+    test_X = pd.read_csv(test_csv_path)
     for fold, model_path in enumerate(model_path_list):
         print("=== [Predict] fold{} starts!! ===".format(fold))
         model = lgb.Booster(model_file=str(model_path))

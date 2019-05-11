@@ -6,22 +6,21 @@
 import sys
 import numpy as np
 import pandas as pd
-import feather
 from pathlib import Path
 from tqdm import tqdm
 import competition as cc
 from common import stop_watch
 
-TRAIN_FEATHER_DIRECTORY_PATH = cc.INPUT_PATH / sys.argv[1]
-TRAIN_FEATHER_LIST = list(TRAIN_FEATHER_DIRECTORY_PATH.glob('**/*.f'))
+TRAIN_CSV_DIRECTORY_PATH = cc.INPUT_PATH / sys.argv[1]
+TRAIN_CSV_LIST = list(TRAIN_CSV_DIRECTORY_PATH.glob('**/*.csv'))
 
 
 @stop_watch
-def extract_features(feather_list, feature_dir_path):
+def extract_features(csv_list, feature_dir_path):
     df = pd.DataFrame()
     Path.mkdir(feature_dir_path, exist_ok=True, parents=True)
-    for index, each_feather in enumerate(tqdm(sorted(feather_list))):
-        seg = feather.read_dataframe(str(each_feather))
+    for index, each_csv in enumerate(tqdm(sorted(csv_list))):
+        seg = pd.read_csv(each_csv, dtype=cc.DTYPES)
         xc = pd.Series(seg['acoustic_data'].values)
 
         # basic aggregation
@@ -53,13 +52,13 @@ def extract_features(feather_list, feature_dir_path):
 
     print("Aggregation output is belows:")
     print(df.head(3))
-    df.to_feather(str(feature_dir_path / "{}.f".format(cc.PREF)))
+    df.to_csv(feature_dir_path / "{}.csv".format(cc.PREF), index=False)
 
 
 if __name__ == "__main__":
-    train_feature_path = cc.FEATURE_PATH / "{}".format(sys.argv[1])
-    train_feather_l = [str(item) for item in TRAIN_FEATHER_LIST]
-    extract_features(train_feather_l, train_feature_path)
-    test_feature_path = cc.FEATURE_PATH / "test"
-    test_feather_l = [str(item) for item in cc.TEST_FEATHER_LIST]
-    extract_features(test_feather_l, test_feature_path)
+    train_csv_path = cc.FEATURE_PATH / "{}".format(sys.argv[1])
+    train_csv_l = [str(item) for item in TRAIN_CSV_LIST]
+    extract_features(train_csv_l, train_csv_path)
+    test_csv_path = cc.FEATURE_PATH / "test"
+    test_csv_l = [str(item) for item in cc.TEST_CSV_LIST]
+    extract_features(test_csv_l, test_csv_path)

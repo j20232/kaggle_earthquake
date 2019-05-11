@@ -8,7 +8,6 @@
 
 import numpy as np
 import pandas as pd
-import feather
 from pathlib import Path
 from tqdm import tqdm
 import competition as cc
@@ -19,8 +18,8 @@ from common import stop_watch
 def main():
     dataset_path = cc.INPUT_PATH / "{}".format(cc.PREF)
     Path.mkdir(dataset_path, exist_ok=True, parents=True)
-    print("Reading the train feather file...")
-    train_df = feather.read_dataframe(str(cc.TRAIN_FEATHER_PATH))
+    print("Reading the train csv file...")
+    train_df = pd.read_csv(cc.TRAIN_CSV_PATH, dtype=cc.DTYPES)
     segments = int(np.floor(train_df.shape[0] / cc.DATASET_LENGTH))
     print("Number of segments: ", segments)
 
@@ -34,11 +33,11 @@ def main():
         train_X = segment_df[["acoustic_data"]].copy()
         train_X.reset_index(inplace=True)
         del train_X["index"]
-        train_X.to_feather(str(dataset_path / "seg_{:0=4}.f".format(seg_id)))
+        train_X.to_csv(dataset_path / "seg_{:0=4}.csv".format(seg_id), index=False)
 
     feature_dir_path = cc.FEATURE_PATH / cc.PREF
     Path.mkdir(feature_dir_path, exist_ok=True, parents=True)
-    train_y.to_feather(str(feature_dir_path / "target.f"))
+    train_y.to_csv(str(feature_dir_path / "target.csv"), index=False)
 
 
 if __name__ == "__main__":

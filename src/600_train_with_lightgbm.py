@@ -3,7 +3,6 @@ import os
 import sys
 import json
 import pandas as pd
-import feather
 import lightgbm as lgb
 from pathlib import Path
 import competition as cc
@@ -25,10 +24,10 @@ def train_with_lightgbm():
 
     for fold, fold_dir in enumerate(fold_dir_list):
         print("=== [Train] fold{} starts!! ===".format(fold))
-        X_tr = feather.read_dataframe(str(fold_dir / "X_tr.f"))
-        X_val = feather.read_dataframe(str(fold_dir / "X_val.f"))
-        y_tr = feather.read_dataframe(str(fold_dir / "y_tr.f"))
-        y_val = feather.read_dataframe(str(fold_dir / "y_val.f"))
+        X_tr = pd.read_csv(fold_dir / "X_tr.csv")
+        X_val = pd.read_csv(fold_dir / "X_val.csv")
+        y_tr = pd.read_csv(fold_dir / "y_tr.csv")
+        y_val = pd.read_csv(fold_dir / "y_val.csv")
         X_tr.set_index("index", inplace=True)
         X_val.set_index("index", inplace=True)
         y_tr.set_index("index", inplace=True)

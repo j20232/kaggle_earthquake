@@ -2,14 +2,25 @@
     "Validation": {
         "Data": "001",
         "Features": ["100", "101", "102", "103", "104"],
-        "Drop": [],
+        "Drop": [
+            "abs_min", "abs_sum", "abs_mad",
+            "abs_kurtosis", "abs_skew", "abs_median",
+            "abs_q999", "abs_q001", "abs_iqr", "abs_ave10",
+            "sum_first_50000", "sum_last_50000", "sum_first_10000", "sum_last_10000",
+            "mad_first_50000", "mad_last_50000", "mad_first_10000", "mad_last_10000",
+            "kurtosis_first_50000", "kurtosis_last_50000", "kurtosis_first_10000", "kurtosis_last_10000",
+            "skew_first_50000", "skew_last_50000", "skew_first_10000", "skew_last_10000",
+            "median_first_50000", "median_last_50000", "median_first_10000", "median_last_10000",
+            "Imean_last_5000", "Imean_last_15000", "Istd_last_5000", "Istd_last_15000",
+            "Imax_last_5000", "Imax_last_15000", "Imin_last_5000", "Imin_last_15000"
+        ],
         "Scaler": "StandardScaler",
         "Folds": 5,
         "Seed": 1116
     },
     "Training": {
         "mtd_params":{
-            "num_boost_round": 2,
+            "num_boost_round": 20000,
             "verbose_eval": 200,
             "early_stopping_rounds": 2000
           },
