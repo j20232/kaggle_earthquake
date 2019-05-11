@@ -5,7 +5,7 @@ from sklearn.metrics import mean_absolute_error
 
 DTYPES = {
     'acoustic_data': np.int16,
-    'time_to_failure': np.float32
+    'time_to_failure': np.float64
 }
 
 PREF = sys.argv[0].split("/")[-1].split("_")[0]
