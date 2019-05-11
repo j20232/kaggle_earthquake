@@ -56,8 +56,7 @@ def create_validation():
         X_val.to_csv(fold_dir / "X_val.csv", index=False)
         y_tr.to_csv(fold_dir / "y_tr.csv", index=False)
         y_val.to_csv(fold_dir / "y_val.csv", index=False)
-    scaled_test_X.reset_index(inplace=True)
-    scaled_test_X.to_csv(cc.VALIDATION_PATH / sys.argv[1] / "test.csv")
+    scaled_test_X.to_csv(cc.VALIDATION_PATH / sys.argv[1] / "test.csv", index=False)
 
 
 def fit_with_scaler(df, params):

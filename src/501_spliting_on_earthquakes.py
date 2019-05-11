@@ -66,8 +66,7 @@ def create_validation():
         pd.read_csv(f) for f in tqdm(feature_files, mininterval=30)], axis=1)
     test_X.drop(params["Drop"], axis=1, inplace=True)
     scaled_test_X = fit_with_scaler(test_X, params)
-    scaled_test_X.reset_index(inplace=True)
-    scaled_test_X.to_csv(cc.VALIDATION_PATH / sys.argv[1] / "test.csv")
+    scaled_test_X.to_csv(cc.VALIDATION_PATH / sys.argv[1] / "test.csv", index=False)
     print("Test shape: ", scaled_test_X.shape)
 
 
