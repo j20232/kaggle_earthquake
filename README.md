@@ -55,6 +55,13 @@ python src/100_simple_aggregation.py 001
 
 6. Create validations (`500`~`599`)
 
+- New Version
+
+```
+python src/500_naive_kfolds.py 0000
+```
+
+- Deprecated Version
 ```
 python src/500_naive_kfolds.py 500_001
 ```
@@ -63,6 +70,13 @@ python src/500_naive_kfolds.py 500_001
 
 7. Train a model using an input config file (`600`~`799`)
 
+- New Version
+
+```
+python src/600_train_with_lightgbm.py 0000
+```
+
+- Deprecated Version
 ```
 python src/600_train_with_lightgbm.py 600_001
 ```
@@ -71,16 +85,30 @@ python src/600_train_with_lightgbm.py 600_001
 
 8. Predict test files using a input model (`800`~`899`)
 
+- New Version
+
 ```
-python src/800_predict_with_lightgbm 600_001
+python src/8000_predict_with_lightgbm.py 0000
+```
+
+- Deprecated Version
+```
+python src/800_predict_with_lightgbm.py 600_001
 ```
 
 `600_001`: index of the config json (`./config/600/600_001.json`)
 
 # Visualization
 
-- Visualize feature importance as png
+## Visualize feature importance as png
 
+- New Version
+
+```
+python src/900_visualize_importance.py 0000
+```
+
+- Deprecated Version
 ```
 python src/900_visualize_importance.py 600_001
 ```

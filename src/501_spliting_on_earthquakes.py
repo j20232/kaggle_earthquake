@@ -17,9 +17,10 @@ from common import stop_watch
 
 @stop_watch
 def create_validation():
-    config_file = list(Path(cc.CONFIG_PATH / cc.PREF).glob(sys.argv[1] + "*.json"))[0]
+    config_file = list(cc.CONFIG_PATH.glob(sys.argv[1] + "*.json"))[0]
     with config_file.open() as f:
         params = json.load(f)
+    params = params["Validation"]
     feature_files = sorted([str(Path(cc.FEATURE_PATH / params["Data"] / "{}.f".format(f))) for f in params["Features"]])
 
     # Read train X
@@ -37,6 +38,8 @@ def create_validation():
     train_y["fold_id"] = (train_y["quake_ind"] % params["Folds"])
     train_y.drop(["ind", "quake_ind"], axis=1, inplace=True)
     scaled_train_X["fold_id"] = train_y["fold_id"].values
+    pd.set_option("display.max_columns", 180)
+    print(scaled_train_X.head(10))
 
     # train
     for fold_ in range(params["Folds"]):

@@ -15,12 +15,13 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = "True"
 
 @stop_watch
 def train_with_lightgbm():
-    config_file = list(Path(cc.CONFIG_PATH / cc.PREF).glob(sys.argv[1] + "*.json"))[0]
+    config_file = list(cc.CONFIG_PATH.glob(sys.argv[1] + "*.json"))[0]
     with config_file.open() as f:
         params = json.load(f)
+    params = params["Training"]
     validity = None
     feature_importance = pd.DataFrame()
-    fold_dir_list = sorted(list(Path(cc.VALIDATION_PATH / params["Validation"]).glob("fold*")))
+    fold_dir_list = sorted(list(Path(cc.VALIDATION_PATH / sys.argv[1]).glob("fold*")))
 
     for fold, fold_dir in enumerate(fold_dir_list):
         print("=== [Train] fold{} starts!! ===".format(fold))
