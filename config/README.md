@@ -2,7 +2,8 @@ Put config files here.
 
 ## New Info
 
-- `0000`-`9999`: Number of versions
+- `0000`-`0999`: Debug
+- `1000`- `9999`: Training
 
 
 ## Deprecated Info
