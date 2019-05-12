@@ -19,12 +19,14 @@ def predict_with_lightgbm():
     config_file = list(cc.CONFIG_PATH.glob(sys.argv[1] + "*.json"))[0]
     with config_file.open() as f:
         params = json.load(f)
-    params = params["Training"]
-
+    params = params["Predict"]
+    if params["Version"] != cc.PREF:
+        assert False
     preds = None
     predict_df = None
     test_csv_path = Path(cc.VALIDATION_PATH / sys.argv[1] / "test.csv")
     test_X = pd.read_csv(test_csv_path)
+    test_X.reset_index(inplace=True)
     for fold, model_path in enumerate(model_path_list):
         print("=== [Predict] fold{} starts!! ===".format(fold))
         model = lgb.Booster(model_file=str(model_path))

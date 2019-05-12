@@ -22,6 +22,8 @@ def extract_features(csv_list, feature_dir_path):
     Path.mkdir(feature_dir_path, exist_ok=True, parents=True)
     for index, each_csv in enumerate(tqdm(sorted(csv_list))):
         seg = pd.read_csv(each_csv, dtype=cc.DTYPES)
+        seg_id = each_csv.split("/")[-1].split(".")[0]
+        df.loc[index, "seg_id"] = seg_id
         xc = pd.Series(seg['acoustic_data'].values)
 
         df.loc[index, 'Hilbert_mean'] = np.abs(hilbert(xc)).mean()

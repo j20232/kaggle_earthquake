@@ -20,12 +20,20 @@ def create_validation():
     with config_file.open() as f:
         params = json.load(f)
     params = params["Validation"]
-    feature_files = sorted([str(Path(cc.FEATURE_PATH / params["Data"] / "{}.csv".format(f))) for f in params["Features"]])
+    if params["Version"] != cc.PREF:
+        assert False
+    feature_files = sorted([str(Path(cc.FEATURE_PATH / params["Data"] / "{}.csv".format(f))) for f in params["Use"].keys()])
 
     # Read train X
-    train_X = pd.concat([
-        pd.read_csv(f) for f in tqdm(feature_files, mininterval=30)], axis=1)
-    train_X.drop(params["Drop"], axis=1, inplace=True)
+    train_X = None
+    for feature_file in tqdm(feature_files):
+        feature_version = feature_file.split("/")[-1].split(".")[0]
+        feature_list = params["Use"][feature_version]
+        if train_X is None:
+            train_X = pd.read_csv(feature_file, usecols=feature_list)
+        else:
+            train_X = pd.merge(train_X, pd.read_csv(feature_file, usecols=feature_list), how="inner", on="seg_id")
+    del train_X["seg_id"]
     scaled_train_X = fit_with_scaler(train_X, params)
 
     # Read train y
@@ -37,8 +45,6 @@ def create_validation():
     train_y["fold_id"] = (train_y["quake_ind"] % params["Folds"])
     train_y.drop(["ind", "quake_ind"], axis=1, inplace=True)
     scaled_train_X["fold_id"] = train_y["fold_id"].values
-    pd.set_option("display.max_columns", 180)
-    print(scaled_train_X.head(10))
 
     # train
     for fold_ in range(params["Folds"]):
@@ -61,10 +67,16 @@ def create_validation():
         y_val.to_csv(fold_dir / "y_val.csv", index=False)
 
     # Read test
-    feature_files = sorted([str(Path(cc.FEATURE_PATH / "test" / "{}.csv".format(f))) for f in params["Features"]])
-    test_X = pd.concat([
-        pd.read_csv(f) for f in tqdm(feature_files, mininterval=30)], axis=1)
-    test_X.drop(params["Drop"], axis=1, inplace=True)
+    feature_files = sorted([str(Path(cc.FEATURE_PATH / "test" / "{}.csv".format(f))) for f in params["Use"].keys()])
+    test_X = None
+    for feature_file in tqdm(feature_files):
+        feature_version = feature_file.split("/")[-1].split(".")[0]
+        feature_list = params["Use"][feature_version]
+        if test_X is None:
+            test_X = pd.read_csv(feature_file, usecols=feature_list)
+        else:
+            test_X = pd.merge(test_X, pd.read_csv(feature_file, usecols=feature_list), how="inner", on="seg_id")
+    del test_X["seg_id"]
     scaled_test_X = fit_with_scaler(test_X, params)
     scaled_test_X.to_csv(cc.VALIDATION_PATH / sys.argv[1] / "test.csv", index=False)
     print("Test shape: ", scaled_test_X.shape)
@@ -77,6 +89,7 @@ def fit_with_scaler(df, params):
         scaler = MinMaxScaler()
     else:
         assert False
+    df.dropna(inplace=True)
     scaler.fit(df)
     scaled_df = pd.DataFrame(scaler.transform(df), columns=df.columns)
     return scaled_df

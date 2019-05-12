@@ -18,6 +18,8 @@ def train_with_lightgbm():
     with config_file.open() as f:
         params = json.load(f)
     params = params["Training"]
+    if params["Version"] != cc.PREF:
+        assert False
     validity = None
     feature_importance = pd.DataFrame()
     fold_dir_list = sorted(list(Path(cc.VALIDATION_PATH / sys.argv[1]).glob("fold*")))
