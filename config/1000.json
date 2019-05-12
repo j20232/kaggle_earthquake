@@ -5,12 +5,67 @@
         "Use": {
             "100": [
                 "seg_id",
-                "min", "max"
+                "mean", "std", "max", "min",
+                "mean_change_abs", "mean_change_rate", "abs_max", "abs_min",
+                "max_to_min", "max_to_min_diff", "count_big", "sum",
+                "abs_mean", "abs_std",
+                "mad", "kurtosis", "skew", "median"
             ],
-            "101":["seg_id"],
-            "102": ["seg_id"],
-            "103": ["seg_id"],
-            "104": ["seg_id"]
+            "101":[
+                "seg_id",
+                "std_first_50000", "std_last_50000", "std_first_10000", "std_last_10000",
+                "avg_first_50000", "avg_last_50000", "avg_first_10000", "avg_last_10000",
+                "min_first_50000", "min_last_50000", "min_first_10000", "min_last_10000",
+                "max_first_50000", "max_last_50000", "max_first_10000", "max_last_10000",
+                "mean_change_rate_first_50000", "mean_change_rate_last_50000",
+                "mean_change_rate_first_10000", "mean_change_rate_last_10000",
+                "q95", "q99", "q05", "q01",
+                "abs_q95", "abs_q99", "abs_q05", "abs_q01",
+                "iqr", "q999", "q001", "ave10"
+            ],
+            "102": [
+                "seg_id",
+                "Rmean", "Rstd", "Rmax", "Rmin",
+                "Imean", "Istd", "Imax", "Imin",
+                "Rmean_last_5000", "Rstd_last_5000", "Rmax_last_5000", "Rmin_last_5000",
+                "Rmean_last_15000", "Rstd_last_15000", "Rmax_last_15000", "Rmax_last_15000"
+            ],
+            "103": [
+                "seg_id",
+                "trend", "abs_trend",
+                "classic_sta_lta1_mean", "classic_sta_lta2_mean", "classic_sta_lta3_mean", "classic_sta_lta4_mean",
+                "Moving_average_700_mean", "Moving_average_1500_mean", "Moving_average_3000_mean", "Moving_average_6000_mean",
+                "exp_Moving_average_300_mean", "exp_Moving_average_3000_mean", "exp_Moving_average_30000_mean",
+                "MA_700MA_std_mean", "MA_700MA_BB_high_mean", "MA_700MA_BB_low_mean",
+                "MA_400MA_std_mean", "MA_400MA_BB_high_mean", "MA_400MA_BB_low_mean",
+                "MA_1000MA_std_mean"
+            ],
+            "104": [
+                "seg_id",
+                "Hilbert_mean", "Hann_window_mean",
+                "ave_roll_std_10", "ave_roll_std_100", "ave_roll_std_1000",
+                "std_roll_std_10", "std_roll_std_100", "std_roll_std_1000",
+                "max_roll_std_10", "max_roll_std_100", "max_roll_std_1000",
+                "min_roll_std_10", "min_roll_std_100", "min_roll_std_1000",
+                "q01_roll_std_10", "q01_roll_std_100", "q01_roll_std_1000",
+                "q05_roll_std_10", "q05_roll_std_100", "q05_roll_std_1000",
+                "q95_roll_std_10", "q95_roll_std_100", "q95_roll_std_1000",
+                "q99_roll_std_10", "q99_roll_std_100", "q99_roll_std_1000",
+                "av_change_abs_roll_std_10", "av_change_abs_roll_std_100", "av_change_abs_roll_std_1000",
+                "av_change_rate_roll_std_10", "av_change_rate_roll_std_100", "av_change_rate_roll_std_1000",
+                "abs_max_roll_std_10", "abs_max_roll_std_100", "abs_max_roll_std_1000",
+                "ave_roll_mean_10", "ave_roll_mean_100", "ave_roll_mean_1000",
+                "std_roll_mean_10", "std_roll_mean_100", "std_roll_mean_1000",
+                "max_roll_mean_10", "max_roll_mean_100", "max_roll_mean_1000",
+                "min_roll_mean_10", "min_roll_mean_100", "min_roll_mean_1000",
+                "q01_roll_mean_10", "q01_roll_mean_100", "q01_roll_mean_1000",
+                "q05_roll_mean_10", "q05_roll_mean_100", "q05_roll_mean_1000",
+                "q95_roll_mean_10", "q95_roll_mean_100", "q95_roll_mean_1000",
+                "q99_roll_mean_10", "q99_roll_mean_100", "q99_roll_mean_1000",
+                "av_change_abs_roll_mean_10", "av_change_abs_roll_mean_100", "av_change_abs_roll_mean_1000",
+                "av_change_rate_roll_mean_10", "av_change_rate_roll_mean_100", "av_change_rate_roll_mean_1000",
+                "abs_max_roll_mean_10", "abs_max_roll_mean_100", "abs_max_roll_mean_1000"
+            ]
         },
         "Scaler": "StandardScaler",
         "Folds": 5,
