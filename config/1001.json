@@ -1,0 +1,42 @@
+{
+    "Validation": {
+        "Version": "501",
+        "Data": "001",
+        "Use": {
+            "105": [
+            ]
+        },
+        "Scaler": "StandardScaler",
+        "Folds": 5,
+        "Seed": 1116
+    },
+    "Training": {
+        "Version": "600",
+        "mtd_params":{
+            "num_boost_round": 20000,
+            "verbose_eval": 200,
+            "early_stopping_rounds": 2000
+          },
+        "trn_params": {
+            "objective": "regression",
+            "metric": "mae",
+            "boosting": "gbdt",
+            "verbose": -1,
+            "learning_rate": 0.001,
+            "num_leaves": 51,
+            "n_jobs": -1,
+            "device": "cpu",
+            "seed": 1116,
+            "max_depth": -1,
+            "feature_fraction": 0.91,
+            "bagging_freq": 1,
+            "bagging_fraction": 0.91,
+            "bagging_seed": 42,
+            "lambda_l1": 0.1,
+            "min_child_samples": 30
+        }
+    },
+    "Predict": {
+        "Version": "800"
+    }
+}
