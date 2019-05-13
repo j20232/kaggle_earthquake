@@ -30,9 +30,13 @@ def create_validation():
         feature_version = feature_file.split("/")[-1].split(".")[0]
         feature_list = params["Use"][feature_version]
         if train_X is None:
-            train_X = pd.read_csv(feature_file, usecols=feature_list)
+            if len(feature_list) == 0:
+                train_X = pd.read_csv(feature_file)
+            else:
+                train_X = pd.read_csv(feature_file, usecols=feature_list)
         else:
             train_X = pd.merge(train_X, pd.read_csv(feature_file, usecols=feature_list), how="inner", on="seg_id")
+    
     del train_X["seg_id"]
     scaled_train_X = fit_with_scaler(train_X, params)
 
@@ -73,7 +77,10 @@ def create_validation():
         feature_version = feature_file.split("/")[-1].split(".")[0]
         feature_list = params["Use"][feature_version]
         if test_X is None:
-            test_X = pd.read_csv(feature_file, usecols=feature_list)
+            if len(feature_list) == 0:
+                test_X = pd.read_csv(feature_file)
+            else:
+                test_X = pd.read_csv(feature_file, usecols=feature_list)
         else:
             test_X = pd.merge(test_X, pd.read_csv(feature_file, usecols=feature_list), how="inner", on="seg_id")
     del test_X["seg_id"]

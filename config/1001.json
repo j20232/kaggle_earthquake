@@ -3,8 +3,7 @@
         "Version": "501",
         "Data": "001",
         "Use": {
-            "105": [
-            ]
+            "105": []
         },
         "Scaler": "StandardScaler",
         "Folds": 5,
